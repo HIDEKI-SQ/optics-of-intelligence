@@ -1,0 +1,22 @@
+# E8 Series - Optics of Intelligence
+# Python dependencies for experiments
+# E8シリーズ - 知性光学
+# 実験用Python依存関係
+
+# Core numerical computing
+# 数値計算コア
+numpy>=1.24.0,<2.0.0
+scipy>=1.10.0,<2.0.0
+pandas>=2.0.0,<3.0.0
+
+# Machine learning
+# 機械学習
+scikit-learn>=1.3.0,<2.0.0
+
+# Visualization
+# 可視化
+matplotlib>=3.7.0,<4.0.0
+
+# Testing (for E8e verification)
+# テスト（E8e検証用）
+pytest>=7.4.0,<8.0.0
