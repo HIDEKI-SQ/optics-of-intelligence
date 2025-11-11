@@ -43,7 +43,7 @@ N_ITEMS = 20        # Number of items / アイテム数
 DIM = 100           # Embedding dimension / 埋め込み次元
 RADIUS = 1.0        # Circle radius / 円半径
 BASE_SEED = 42      # Base random seed / 基本乱数シード
-N_SEEDS = 30        # Number of seeds / シード数
+N_SEEDS = 1000      # Number of seeds / シード数
 NOISE_LEVELS = [0.0, 0.1, 0.2, 0.5, 1.0]  # Semantic noise levels / 意味ノイズレベル
 OUTPUT_DIR = Path("outputs/exp12")  # Output directory / 出力ディレクトリ
 
@@ -341,9 +341,9 @@ def create_visualization(df: pd.DataFrame) -> None:
     axes[0].errorbar(noise_vals, vs_means, yerr=vs_stds, marker='o', linewidth=2,
                     markersize=8, capsize=5, color='purple', label='VS')
     axes[0].axhline(y=0, color='red', linestyle='--', linewidth=1, alpha=0.5)
-    axes[0].set_xlabel('Semantic Noise Level\n意味ノイズレベル', fontsize=11)
-    axes[0].set_ylabel('VS (Value-Space Correlation)\nVS（意味-空間相関）', fontsize=11)
-    axes[0].set_title('O3: VS≈0 Despite Semantic Stress\nO3：意味ストレス下でもVS≈0',
+    axes[0].set_xlabel('Semantic Noise Level', fontsize=11)
+    axes[0].set_ylabel('VS (Value-Space Correlation)', fontsize=11)
+    axes[0].set_title('O3: VS≈0 Despite Semantic Stress',
                      fontsize=12, fontweight='bold')
     axes[0].legend()
     axes[0].grid(True, alpha=0.3)
@@ -358,9 +358,9 @@ def create_visualization(df: pd.DataFrame) -> None:
                     label='Semantic Similarity')
     axes[1].axhline(y=1.0, color='blue', linestyle='--', linewidth=1, alpha=0.5,
                    label='Perfect similarity')
-    axes[1].set_xlabel('Semantic Noise Level\n意味ノイズレベル', fontsize=11)
-    axes[1].set_ylabel('Semantic Similarity\n意味類似度', fontsize=11)
-    axes[1].set_title('Meaning Degrades with Noise\n意味はノイズで劣化',
+    axes[1].set_xlabel('Semantic Noise Level', fontsize=11)
+    axes[1].set_ylabel('Semantic Similarity', fontsize=11)
+    axes[1].set_title('Meaning Degrades with Noise',
                      fontsize=12, fontweight='bold')
     axes[1].legend()
     axes[1].grid(True, alpha=0.3)
@@ -376,9 +376,9 @@ def create_visualization(df: pd.DataFrame) -> None:
                        label=f'Noise={noise:.1f}')
     
     axes[2].axhline(y=0, color='red', linestyle='--', linewidth=1, alpha=0.5)
-    axes[2].set_xlabel('Semantic Similarity\n意味類似度', fontsize=11)
-    axes[2].set_ylabel('VS (Value-Space Correlation)\nVS（意味-空間相関）', fontsize=11)
-    axes[2].set_title('O3: Low Semantic Similarity ≠ High VS\nO3：低意味類似度 ≠ 高VS',
+    axes[2].set_xlabel('Semantic Similarity', fontsize=11)
+    axes[2].set_ylabel('VS (Value-Space Correlation)', fontsize=11)
+    axes[2].set_title('O3: Low Semantic Similarity ≠ High VS',
                      fontsize=12, fontweight='bold')
     axes[2].legend(fontsize=8)
     axes[2].grid(True, alpha=0.3)
