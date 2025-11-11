@@ -41,7 +41,7 @@ N_ITEMS = 20        # Number of items / アイテム数
 DIM = 100           # Embedding dimension / 埋め込み次元
 RADIUS = 1.0        # Circle radius / 円半径
 BASE_SEED = 42      # Base random seed / 基本乱数シード
-N_SEEDS = 30        # Number of seeds / シード数
+N_SEEDS = 1000      # Number of seeds / シード数
 ROTATION_ANGLES = [0, 30, 60, 90, 120, 180]  # Rotation angles in degrees / 回転角度（度）
 OUTPUT_DIR = Path("outputs/exp10")  # Output directory / 出力ディレクトリ
 
@@ -292,9 +292,9 @@ def create_visualization(df: pd.DataFrame) -> None:
                     markersize=8, capsize=5, color='blue')
     axes[0].axhline(y=0, color='red', linestyle='--', linewidth=1, alpha=0.5,
                    label='VS=0 (Natural Orthogonality)')
-    axes[0].set_xlabel('Rotation Angle (degrees) / 回転角度（度）', fontsize=11)
-    axes[0].set_ylabel('VS (Value-Space Correlation)\nVS（意味-空間相関）', fontsize=11)
-    axes[0].set_title('O2: VS≈0 Invariant to Rotation\nO2：回転に対してVS≈0が不変',
+    axes[0].set_xlabel('Rotation Angle (degrees)', fontsize=11)
+    axes[0].set_ylabel('VS (Value-Space Correlation)', fontsize=11)
+    axes[0].set_title('O2: VS≈0 Invariant to Rotation',
                      fontsize=12, fontweight='bold')
     axes[0].legend()
     axes[0].grid(True, alpha=0.3)
@@ -310,9 +310,9 @@ def create_visualization(df: pd.DataFrame) -> None:
         patch.set_facecolor('lightblue')
     
     axes[1].axhline(y=0, color='red', linestyle='--', linewidth=1, alpha=0.5)
-    axes[1].set_xlabel('Rotation Angle / 回転角度', fontsize=11)
-    axes[1].set_ylabel('VS (Value-Space Correlation)\nVS（意味-空間相関）', fontsize=11)
-    axes[1].set_title('VS Distribution Across Rotations\n回転にわたるVS分布',
+    axes[1].set_xlabel('Rotation Angle', fontsize=11)
+    axes[1].set_ylabel('VS (Value-Space Correlation)', fontsize=11)
+    axes[1].set_title('VS Distribution Across Rotations',
                      fontsize=12, fontweight='bold')
     axes[1].grid(True, alpha=0.3, axis='y')
     
