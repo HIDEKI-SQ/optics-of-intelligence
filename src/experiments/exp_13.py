@@ -43,7 +43,7 @@ N_ITEMS = 20        # Number of items / アイテム数
 DIM = 100           # Embedding dimension / 埋め込み次元
 RADIUS = 1.0        # Circle radius / 円半径
 BASE_SEED = 42      # Base random seed / 基本乱数シード
-N_SEEDS = 30        # Number of seeds / シード数
+N_SEEDS = 1000      # Number of seeds / シード数
 LAMBDA_VALUES = [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]  # Value gate parameters / 価値ゲートパラメータ
 OUTPUT_DIR = Path("outputs/exp13")  # Output directory / 出力ディレクトリ
 
@@ -319,9 +319,9 @@ def create_visualization(df: pd.DataFrame) -> None:
                          [m - s for m, s in zip(vs_means, vs_stds)],
                          [m + s for m, s in zip(vs_means, vs_stds)],
                          alpha=0.2, color='blue')
-    axes[0].set_xlabel('Value Gate Parameter (λ) / 価値ゲートパラメータ（λ）', fontsize=12)
-    axes[0].set_ylabel('VS (Value-Space Correlation)\nVS（意味-空間相関）', fontsize=12)
-    axes[0].set_title('O4: Value-Gated Coupling\nO4：価値ゲート結合',
+    axes[0].set_xlabel('Value Gate Parameter (λ) ', fontsize=12)
+    axes[0].set_ylabel('VS (Value-Space Correlation)', fontsize=12)
+    axes[0].set_title('O4: Value-Gated Coupling',
                      fontsize=13, fontweight='bold')
     axes[0].legend(fontsize=10)
     axes[0].grid(True, alpha=0.3)
@@ -329,10 +329,10 @@ def create_visualization(df: pd.DataFrame) -> None:
     
     # Add annotations for key points
     # 主要ポイントの注釈を追加
-    axes[0].annotate('λ=0: Random\nランダム', xy=(0, vs_means[0]), xytext=(0.15, vs_means[0]-0.15),
+    axes[0].annotate('λ=0: Random', xy=(0, vs_means[0]), xytext=(0.15, vs_means[0]-0.15),
                     arrowprops=dict(arrowstyle='->', color='black', lw=1.5),
                     fontsize=9, bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.7))
-    axes[0].annotate('λ=1: Aligned\n整列', xy=(1, vs_means[-1]), xytext=(0.7, vs_means[-1]+0.15),
+    axes[0].annotate('λ=1: Aligned', xy=(1, vs_means[-1]), xytext=(0.7, vs_means[-1]+0.15),
                     arrowprops=dict(arrowstyle='->', color='black', lw=1.5),
                     fontsize=9, bbox=dict(boxstyle='round', facecolor='lightgreen', alpha=0.7))
     
@@ -351,15 +351,15 @@ def create_visualization(df: pd.DataFrame) -> None:
     axes[1].axhline(y=0, color='red', linestyle='--', linewidth=1, alpha=0.5)
     axes[1].set_xticks(positions)
     axes[1].set_xticklabels([f'{l:.1f}' for l in lambda_vals])
-    axes[1].set_xlabel('Value Gate Parameter (λ) / 価値ゲートパラメータ（λ）', fontsize=12)
-    axes[1].set_ylabel('VS (Value-Space Correlation)\nVS（意味-空間相関）', fontsize=12)
-    axes[1].set_title('VS Distribution by Value Pressure\n価値圧力ごとのVS分布',
+    axes[1].set_xlabel('Value Gate Parameter (λ) ', fontsize=12)
+    axes[1].set_ylabel('VS (Value-Space Correlation)', fontsize=12)
+    axes[1].set_title('VS Distribution by Value Pressure',
                      fontsize=13, fontweight='bold')
     axes[1].grid(True, alpha=0.3, axis='y')
     
     # Add statistics summary
     # 統計要約を追加
-    stats_text = 'Value Gate Effect:\n価値ゲート効果:\n\n'
+    stats_text = 'Value Gate Effect:\n\n'
     stats_text += '\n'.join([f'λ={l:.1f}: {vs_means[i]:.3f}±{vs_stds[i]:.3f}'
                             for i, l in enumerate(lambda_vals)])
     stats_text += f'\n\nΔVS = {vs_means[-1] - vs_means[0]:.3f}'
