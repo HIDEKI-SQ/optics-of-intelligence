@@ -36,7 +36,7 @@ import json
 N_ITEMS = 20        # Number of items in A-axis / A軸のアイテム数
 DIM = 100           # Embedding dimension / 埋め込み次元
 BASE_SEED = 42      # Base random seed / 基本乱数シード
-N_SEEDS = 30        # Number of seeds for robustness / 頑健性検証用のシード数
+N_SEEDS = 1000      # Number of seeds for robustness / 頑健性検証用のシード数
 OUTPUT_DIR = Path("outputs/exp00")  # Output directory / 出力ディレクトリ
 
 
@@ -269,26 +269,26 @@ def create_visualization(df: pd.DataFrame) -> None:
     ax1.hist(df['vs'], bins=15, edgecolor='black', alpha=0.7)
     ax1.axvline(x=0, color='red', linestyle='--', linewidth=2, label='VS=0')
     ax1.axvline(x=df['vs'].mean(), color='blue', linestyle='-', linewidth=2, label=f'Mean={df["vs"].mean():.3f}')
-    ax1.set_xlabel('VS (Value-Space Correlation)\nVS（意味-空間相関）')
-    ax1.set_ylabel('Frequency / 頻度')
-    ax1.set_title('EXP00: VS Distribution\nEXP00：VS分布')
+    ax1.set_xlabel('VS (Value-Space Correlation)')
+    ax1.set_ylabel('Frequency')
+    ax1.set_title('EXP00: VS Distribution')
     ax1.legend()
     ax1.grid(True, alpha=0.3)
     
     # Right panel: Box plot
     # 右パネル：箱ひげ図
-    ax2.boxplot([df['vs']], labels=['Random\nランダム'])
+    ax2.boxplot([df['vs']], labels=['Random'])
     ax2.axhline(y=0, color='red', linestyle='--', linewidth=1, alpha=0.5)
-    ax2.set_ylabel('VS (Value-Space Correlation)\nVS（意味-空間相関）')
-    ax2.set_title('EXP00: VS≈0 Baseline\nEXP00：VS≈0ベースライン')
+    ax2.set_ylabel('VS (Value-Space Correlation)')
+    ax2.set_title('EXP00: VS≈0 Baseline')
     ax2.grid(True, alpha=0.3)
     
     # Add statistics text
     # 統計情報のテキストを追加
     stats_text = (
-        f'Mean / 平均: {df["vs"].mean():.4f}\n'
-        f'Std / 標準偏差: {df["vs"].std():.4f}\n'
-        f'Median / 中央値: {df["vs"].median():.4f}'
+        f'Mean: {df["vs"].mean():.4f}\n'
+        f'Std: {df["vs"].std():.4f}\n'
+        f'Median: {df["vs"].median():.4f}'
     )
     ax2.text(0.02, 0.98, stats_text,
             transform=ax2.transAxes,
