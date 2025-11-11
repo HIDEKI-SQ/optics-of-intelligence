@@ -39,7 +39,7 @@ import json
 N_ITEMS = 20        # Number of items in A-axis / A軸のアイテム数
 DIM = 100           # Embedding dimension / 埋め込み次元
 BASE_SEED = 42      # Base random seed / 基本乱数シード
-N_SEEDS = 30        # Number of seeds for robustness / 頑健性検証用のシード数
+N_SEEDS = 1000      # Number of seeds for robustness / 頑健性検証用のシード数
 OUTPUT_DIR = Path("outputs/exp_beta")  # Output directory / 出力ディレクトリ
 
 
