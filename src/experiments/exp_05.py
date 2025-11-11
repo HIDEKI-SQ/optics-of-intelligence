@@ -42,7 +42,7 @@ N_ITEMS = 20        # Number of items / アイテム数
 DIM = 100           # Embedding dimension / 埋め込み次元
 RADIUS = 1.0        # Circle radius / 円半径
 BASE_SEED = 42      # Base random seed / 基本乱数シード
-N_SEEDS = 10        # Number of A-axis seeds / A軸のシード数
+N_SEEDS = 1000      # Number of A-axis seeds / A軸のシード数
 N_PERMUTATIONS = 20 # Number of permutations per seed / シードごとの順列数
 OUTPUT_DIR = Path("outputs/exp05")  # Output directory / 出力ディレクトリ
 
@@ -262,9 +262,9 @@ def create_visualization(df: pd.DataFrame) -> None:
     axes[0].axvline(x=0, color='red', linestyle='--', linewidth=2, label='VS=0')
     axes[0].axvline(x=df['vs'].mean(), color='blue', linestyle='-', linewidth=2,
                    label=f'Mean={df["vs"].mean():.3f}')
-    axes[0].set_xlabel('VS (Value-Space Correlation)\nVS（意味-空間相関）')
-    axes[0].set_ylabel('Frequency / 頻度')
-    axes[0].set_title('VS Distribution Across Permutations\n順列にわたるVS分布')
+    axes[0].set_xlabel('VS (Value-Space Correlation)')
+    axes[0].set_ylabel('Frequency')
+    axes[0].set_title('VS Distribution Across Permutations')
     axes[0].legend()
     axes[0].grid(True, alpha=0.3)
     
@@ -274,19 +274,19 @@ def create_visualization(df: pd.DataFrame) -> None:
     data = [df[df['seed_A'] == s]['vs'].values for s in seeds]
     axes[1].boxplot(data, labels=[f'S{i}' for i in range(len(seeds))])
     axes[1].axhline(y=0, color='red', linestyle='--', linewidth=1, alpha=0.5)
-    axes[1].set_xlabel('Seed / シード')
-    axes[1].set_ylabel('VS (Value-Space Correlation)\nVS（意味-空間相関）')
-    axes[1].set_title('VS Stability Across Seeds\nシード間のVS安定性')
+    axes[1].set_xlabel('Seed')
+    axes[1].set_ylabel('VS (Value-Space Correlation)')
+    axes[1].set_title('VS Stability Across Seeds')
     axes[1].grid(True, alpha=0.3)
     
     # Add statistics
     # 統計情報を追加
     stats_text = (
-        f'Total trials / 総試行数: {len(df)}\n'
-        f'Mean / 平均: {df["vs"].mean():.4f}\n'
-        f'Std / 標準偏差: {df["vs"].std():.4f}\n'
-        f'Median / 中央値: {df["vs"].median():.4f}\n'
-        f'Range / 範囲: [{df["vs"].min():.3f}, {df["vs"].max():.3f}]'
+        f'Total trials: {len(df)}\n'
+        f'Mean: {df["vs"].mean():.4f}\n'
+        f'Std: {df["vs"].std():.4f}\n'
+        f'Median: {df["vs"].median():.4f}\n'
+        f'Range: [{df["vs"].min():.3f}, {df["vs"].max():.3f}]'
     )
     axes[0].text(0.02, 0.98, stats_text,
                 transform=axes[0].transAxes,
