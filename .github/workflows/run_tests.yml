@@ -43,12 +43,3 @@ jobs:
         name: test-results
         path: tests/
         retention-days: 30
-```
-
----
-
-## 📝 requirements.txt に pytest 追加
-
-既存の `requirements.txt` の最後に追加：
-```
-pytest>=7.0.0
