@@ -39,7 +39,7 @@ import json
 N_ITEMS = 20        # Number of items / アイテム数
 DIM = 100           # Embedding dimension / 埋め込み次元
 BASE_SEED = 42      # Base random seed / 基本乱数シード
-N_SEEDS = 30        # Number of seeds / シード数
+N_SEEDS = 1000      # Number of seeds / シード数
 OUTPUT_DIR = Path("outputs/exp03")  # Output directory / 出力ディレクトリ
 
 
@@ -262,27 +262,27 @@ def create_visualization(df: pd.DataFrame) -> None:
     
     # Panel 1: Histograms
     # パネル1：ヒストグラム
-    axes[0].hist(df['vs_line'], bins=15, alpha=0.6, label='Line\nライン', 
+    axes[0].hist(df['vs_line'], bins=15, alpha=0.6, label='Line', 
                 edgecolor='black', color='lightblue')
-    axes[0].hist(df['vs_random'], bins=15, alpha=0.6, label='Random\nランダム',
+    axes[0].hist(df['vs_random'], bins=15, alpha=0.6, label='Random',
                 edgecolor='black', color='lightsalmon')
     axes[0].axvline(x=0, color='red', linestyle='--', linewidth=2)
-    axes[0].set_xlabel('VS (Value-Space Correlation)\nVS（意味-空間相関）')
-    axes[0].set_ylabel('Frequency / 頻度')
-    axes[0].set_title('VS Distribution\nVS分布')
+    axes[0].set_xlabel('VS (Value-Space Correlation)')
+    axes[0].set_ylabel('Frequency')
+    axes[0].set_title('VS Distribution')
     axes[0].legend()
     axes[0].grid(True, alpha=0.3)
     
     # Panel 2: Box plots
     # パネル2：箱ひげ図
     data = [df['vs_line'], df['vs_random']]
-    labels = ['Line\nライン', 'Random\nランダム']
+    labels = ['Line', 'Random']
     bp = axes[1].boxplot(data, labels=labels, patch_artist=True)
     bp['boxes'][0].set_facecolor('lightblue')
     bp['boxes'][1].set_facecolor('lightsalmon')
     axes[1].axhline(y=0, color='red', linestyle='--', linewidth=1, alpha=0.5)
-    axes[1].set_ylabel('VS (Value-Space Correlation)\nVS（意味-空間相関）')
-    axes[1].set_title('EXP03: Line vs Random\nEXP03：ライン vs ランダム')
+    axes[1].set_ylabel('VS (Value-Space Correlation)')
+    axes[1].set_title('EXP03: Line vs Random')
     axes[1].grid(True, alpha=0.3)
     
     # Panel 3: Line layout illustration
@@ -294,18 +294,18 @@ def create_visualization(df: pd.DataFrame) -> None:
     axes[2].set_xlim(-0.1, 1.1)
     axes[2].set_ylim(-0.2, 0.2)
     axes[2].set_aspect('equal')
-    axes[2].set_xlabel('Position / 位置')
-    axes[2].set_title('Sample Line Layout (1D)\nサンプルラインレイアウト（1D）')
+    axes[2].set_xlabel('Position')
+    axes[2].set_title('Sample Line Layout (1D)')
     axes[2].grid(True, alpha=0.3)
     axes[2].axhline(y=0, color='gray', linestyle='-', linewidth=0.5, alpha=0.3)
     
     # Add statistics
     # 統計情報を追加
     stats_text = (
-        f'Line / ライン:\n'
+        f'Line:\n'
         f'  Mean: {df["vs_line"].mean():.4f}\n'
         f'  Std: {df["vs_line"].std():.4f}\n\n'
-        f'Random / ランダム:\n'
+        f'Random:\n'
         f'  Mean: {df["vs_random"].mean():.4f}\n'
         f'  Std: {df["vs_random"].std():.4f}'
     )
