@@ -37,7 +37,7 @@ N_ITEMS = 20        # Number of items in A-axis / A軸のアイテム数
 DIM = 100           # Embedding dimension / 埋め込み次元
 RADIUS = 1.0        # Circle radius for spatial condition / 空間条件の円半径
 BASE_SEED = 42      # Base random seed / 基本乱数シード
-N_SEEDS = 30        # Number of seeds for robustness / 頑健性検証用のシード数
+N_SEEDS = 1000      # Number of seeds for robustness / 頑健性検証用のシード数
 OUTPUT_DIR = Path("outputs/exp01")  # Output directory / 出力ディレクトリ
 
 
@@ -422,12 +422,12 @@ def create_visualization(df: pd.DataFrame) -> None:
     # Box plot comparing spatial vs random
     # 空間配置 vs ランダム配置の箱ひげ図
     data = [df['vs_spatial'], df['vs_random']]
-    labels = ['Spatial\n空間配置', 'Random\nランダム配置']
+    labels = ['Spatial', 'Random']
     
     ax.boxplot(data, labels=labels)
     ax.axhline(y=0, color='red', linestyle='--', linewidth=1, alpha=0.5)
-    ax.set_ylabel('VS (Value-Space Correlation)\nVS（意味-空間相関）')
-    ax.set_title('EXP01: VS≈0 in Both Conditions\nEXP01：両条件でVS≈0')
+    ax.set_ylabel('VS (Value-Space Correlation)')
+    ax.set_title('EXP01: VS≈0 in Both Conditions')
     ax.grid(True, alpha=0.3)
     
     # Add text annotation
@@ -435,8 +435,8 @@ def create_visualization(df: pd.DataFrame) -> None:
     mean_spatial = df['vs_spatial'].mean()
     mean_random = df['vs_random'].mean()
     ax.text(0.02, 0.98, 
-            f'Spatial mean / 空間平均: {mean_spatial:.3f}\n'
-            f'Random mean / ランダム平均: {mean_random:.3f}',
+            f'Spatial mean: {mean_spatial:.3f}\n'
+            f'Random mean: {mean_random:.3f}',
             transform=ax.transAxes, 
             verticalalignment='top',
             bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
