@@ -248,9 +248,9 @@ def create_visualization(df: pd.DataFrame) -> None:
     ax1.axvline(x=0, color='red', linestyle='--', linewidth=2, label='VS=0')
     ax1.axvline(x=df['vs'].mean(), color='blue', linestyle='-', linewidth=2, 
                 label=f'Mean={df["vs"].mean():.3f}')
-    ax1.set_xlabel('VS (Value-Space Correlation)\nVS（意味-空間相関）')
-    ax1.set_ylabel('Frequency / 頻度')
-    ax1.set_title('EXP Beta: VS Distribution\nEXP Beta：VS分布')
+    ax1.set_xlabel('VS (Value-Space Correlation)')
+    ax1.set_ylabel('Frequency')
+    ax1.set_title('EXP Beta: VS Distribution')
     ax1.legend()
     ax1.grid(True, alpha=0.3)
     
@@ -258,18 +258,17 @@ def create_visualization(df: pd.DataFrame) -> None:
     # 右パネル：箱ひげ図
     ax2.boxplot([df['vs']], labels=['Beta\nベータ'])
     ax2.axhline(y=0, color='red', linestyle='--', linewidth=1, alpha=0.5)
-    ax2.set_ylabel('VS (Value-Space Correlation)\nVS（意味-空間相関）')
-    ax2.set_title('EXP Beta: Exploratory Results\nEXP Beta：探索的結果')
+    ax2.set_ylabel('VS (Value-Space Correlation)')
+    ax2.set_title('EXP Beta: Exploratory Results')
     ax2.grid(True, alpha=0.3)
     
     # Add note
     # 注記を追加
     note_text = (
-        'Initial Exploration\n初期探索\n\n'
+        'Initial Exploration\n\n'
         f'Mean: {df["vs"].mean():.4f}\n'
         f'Std: {df["vs"].std():.4f}\n\n'
         'See EXP00 for refined method\n'
-        '改良された方法はEXP00を参照'
     )
     ax2.text(0.02, 0.98, note_text,
             transform=ax2.transAxes,
