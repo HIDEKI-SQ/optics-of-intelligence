@@ -41,7 +41,7 @@ N_ITEMS = 20        # Number of items / アイテム数
 DIM = 100           # Embedding dimension / 埋め込み次元
 RADIUS = 1.0        # Circle radius / 円半径
 BASE_SEED = 42      # Base random seed / 基本乱数シード
-N_SEEDS = 30        # Number of seeds / シード数
+N_SEEDS = 1000      # Number of seeds / シード数
 NOISE_LEVELS = [0.0, 0.05, 0.1, 0.2, 0.5]  # Noise levels / ノイズレベル
 OUTPUT_DIR = Path("outputs/exp11")  # Output directory / 出力ディレクトリ
 
@@ -291,9 +291,9 @@ def create_visualization(df: pd.DataFrame) -> None:
                     markersize=8, capsize=5, color='green')
     axes[0].axhline(y=0, color='red', linestyle='--', linewidth=1, alpha=0.5,
                    label='VS=0 (Natural Orthogonality)')
-    axes[0].set_xlabel('Coordinate Noise Level / 座標ノイズレベル', fontsize=11)
-    axes[0].set_ylabel('VS (Value-Space Correlation)\nVS（意味-空間相関）', fontsize=11)
-    axes[0].set_title('O3: VS≈0 Despite Coordinate Stress\nO3：座標ストレス下でもVS≈0',
+    axes[0].set_xlabel('Coordinate Noise Level', fontsize=11)
+    axes[0].set_ylabel('VS (Value-Space Correlation)', fontsize=11)
+    axes[0].set_title('O3: VS≈0 Despite Coordinate Stress',
                      fontsize=12, fontweight='bold')
     axes[0].legend()
     axes[0].grid(True, alpha=0.3)
@@ -310,9 +310,9 @@ def create_visualization(df: pd.DataFrame) -> None:
         patch.set_facecolor(color)
     
     axes[1].axhline(y=0, color='red', linestyle='--', linewidth=1, alpha=0.5)
-    axes[1].set_xlabel('Noise Level / ノイズレベル', fontsize=11)
-    axes[1].set_ylabel('VS (Value-Space Correlation)\nVS（意味-空間相関）', fontsize=11)
-    axes[1].set_title('VS Distribution by Noise Level\nノイズレベルごとのVS分布',
+    axes[1].set_xlabel('Noise Level', fontsize=11)
+    axes[1].set_ylabel('VS (Value-Space Correlation)', fontsize=11)
+    axes[1].set_title('VS Distribution by Noise Level',
                      fontsize=12, fontweight='bold')
     axes[1].grid(True, alpha=0.3, axis='y')
     
