@@ -40,7 +40,7 @@ import json
 N_ITEMS = 20        # Number of items / アイテム数
 DIM = 100           # Embedding dimension / 埋め込み次元
 BASE_SEED = 42      # Base random seed / 基本乱数シード
-N_SEEDS = 30        # Number of seeds / シード数
+N_SEEDS = 1000      # Number of seeds / シード数
 OUTPUT_DIR = Path("outputs/exp04")  # Output directory / 出力ディレクトリ
 
 
@@ -279,14 +279,14 @@ def create_visualization(df: pd.DataFrame) -> None:
     # Panel 1: Histograms
     # パネル1：ヒストグラム
     ax1 = plt.subplot(1, 3, 1)
-    ax1.hist(df['vs_cube'], bins=15, alpha=0.6, label='Cube\n立方体',
+    ax1.hist(df['vs_cube'], bins=15, alpha=0.6, label='Cube',
             edgecolor='black', color='lightblue')
-    ax1.hist(df['vs_random'], bins=15, alpha=0.6, label='Random\nランダム',
+    ax1.hist(df['vs_random'], bins=15, alpha=0.6, label='Random',
             edgecolor='black', color='lightsalmon')
     ax1.axvline(x=0, color='red', linestyle='--', linewidth=2)
-    ax1.set_xlabel('VS (Value-Space Correlation)\nVS（意味-空間相関）')
-    ax1.set_ylabel('Frequency / 頻度')
-    ax1.set_title('VS Distribution\nVS分布')
+    ax1.set_xlabel('VS (Value-Space Correlation)')
+    ax1.set_ylabel('Frequency')
+    ax1.set_title('VS Distribution')
     ax1.legend()
     ax1.grid(True, alpha=0.3)
     
@@ -294,22 +294,22 @@ def create_visualization(df: pd.DataFrame) -> None:
     # パネル2：箱ひげ図
     ax2 = plt.subplot(1, 3, 2)
     data = [df['vs_cube'], df['vs_random']]
-    labels = ['Cube\n立方体', 'Random\nランダム']
+    labels = ['Cube', 'Random']
     bp = ax2.boxplot(data, labels=labels, patch_artist=True)
     bp['boxes'][0].set_facecolor('lightblue')
     bp['boxes'][1].set_facecolor('lightsalmon')
     ax2.axhline(y=0, color='red', linestyle='--', linewidth=1, alpha=0.5)
-    ax2.set_ylabel('VS (Value-Space Correlation)\nVS（意味-空間相関）')
-    ax2.set_title('EXP04: Cube vs Random\nEXP04：立方体 vs ランダム')
+    ax2.set_ylabel('VS (Value-Space Correlation)')
+    ax2.set_title('EXP04: Cube vs Random')
     ax2.grid(True, alpha=0.3)
     
     # Add statistics to panel 2
     # パネル2に統計情報を追加
     stats_text = (
-        f'Cube / 立方体:\n'
+        f'Cube:\n'
         f'  Mean: {df["vs_cube"].mean():.4f}\n'
         f'  Std: {df["vs_cube"].std():.4f}\n\n'
-        f'Random / ランダム:\n'
+        f'Random:\n'
         f'  Mean: {df["vs_random"].mean():.4f}\n'
         f'  Std: {df["vs_random"].std():.4f}'
     )
@@ -330,7 +330,7 @@ def create_visualization(df: pd.DataFrame) -> None:
     ax3.set_xlabel('X')
     ax3.set_ylabel('Y')
     ax3.set_zlabel('Z')
-    ax3.set_title('Sample 3D Cube Layout\nサンプル3D立方体レイアウト')
+    ax3.set_title('Sample 3D Cube Layout')
     
     # Save figure
     # 図を保存
