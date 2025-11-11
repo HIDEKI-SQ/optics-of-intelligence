@@ -39,7 +39,7 @@ import json
 N_ITEMS = 20        # Number of items / アイテム数
 DIM = 100           # Embedding dimension / 埋め込み次元
 BASE_SEED = 42      # Base random seed / 基本乱数シード
-N_SEEDS = 30        # Number of seeds / シード数
+N_SEEDS = 1000      # Number of seeds / シード数
 OUTPUT_DIR = Path("outputs/exp02")  # Output directory / 出力ディレクトリ
 
 
@@ -279,11 +279,11 @@ def create_visualization(df: pd.DataFrame) -> None:
     # Panel 2: Box plots
     # パネル2：箱ひげ図
     data = [df['vs_grid'], df['vs_random']]
-    labels = ['Grid\nグリッド', 'Random\nランダム']
+    labels = ['Grid', 'Random']
     axes[1].boxplot(data, labels=labels)
     axes[1].axhline(y=0, color='red', linestyle='--', linewidth=1, alpha=0.5)
-    axes[1].set_ylabel('VS (Value-Space Correlation)\nVS（意味-空間相関）')
-    axes[1].set_title('EXP02: Grid vs Random\nEXP02：グリッド vs ランダム')
+    axes[1].set_ylabel('VS (Value-Space Correlation)')
+    axes[1].set_title('EXP02: Grid vs Random')
     axes[1].grid(True, alpha=0.3)
     
     # Panel 3: Grid layout illustration
@@ -297,16 +297,16 @@ def create_visualization(df: pd.DataFrame) -> None:
     axes[2].set_aspect('equal')
     axes[2].set_xlabel('X')
     axes[2].set_ylabel('Y')
-    axes[2].set_title('Sample Grid Layout\nサンプルグリッドレイアウト')
+    axes[2].set_title('Sample Grid Layout')
     axes[2].grid(True, alpha=0.3)
     
     # Add statistics
     # 統計情報を追加
     stats_text = (
-        f'Grid / グリッド:\n'
+        f'Grid\n'
         f'  Mean: {df["vs_grid"].mean():.4f}\n'
         f'  Std: {df["vs_grid"].std():.4f}\n\n'
-        f'Random / ランダム:\n'
+        f'Random\n'
         f'  Mean: {df["vs_random"].mean():.4f}\n'
         f'  Std: {df["vs_random"].std():.4f}'
     )
