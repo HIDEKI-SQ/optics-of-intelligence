@@ -256,7 +256,7 @@ def create_visualization(df: pd.DataFrame) -> None:
     
     # Right panel: Box plot
     # 右パネル：箱ひげ図
-    ax2.boxplot([df['vs']], labels=['Beta\nベータ'])
+    ax2.boxplot([df['vs']], labels=['Beta'])
     ax2.axhline(y=0, color='red', linestyle='--', linewidth=1, alpha=0.5)
     ax2.set_ylabel('VS (Value-Space Correlation)')
     ax2.set_title('EXP Beta: Exploratory Results')
