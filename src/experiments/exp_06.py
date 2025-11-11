@@ -40,7 +40,7 @@ N_ITEMS = 20        # Number of items / アイテム数
 DIMS = [50, 100, 200, 500]  # Embedding dimensions to test / テストする埋め込み次元
 RADIUS = 1.0        # Circle radius / 円半径
 BASE_SEED = 42      # Base random seed / 基本乱数シード
-N_SEEDS = 30        # Number of seeds / シード数
+N_SEEDS = 1000      # Number of seeds / シード数
 OUTPUT_DIR = Path("outputs/exp06")  # Output directory / 出力ディレクトリ
 
 
@@ -292,9 +292,9 @@ def create_visualization(df: pd.DataFrame) -> None:
                     linewidth=2, markersize=8, capsize=5, label='Random', color='orange')
     axes[0].axhline(y=0, color='red', linestyle='--', linewidth=1, alpha=0.5)
     axes[0].set_xscale('log')
-    axes[0].set_xlabel('Embedding Dimension (log scale)\n埋め込み次元（対数スケール）', fontsize=11)
-    axes[0].set_ylabel('VS (Value-Space Correlation)\nVS（意味-空間相関）', fontsize=11)
-    axes[0].set_title('O1: VS≈0 Across Dimensions\nO1：次元を超えてVS≈0',
+    axes[0].set_xlabel('Embedding Dimension (log scale)', fontsize=11)
+    axes[0].set_ylabel('VS (Value-Space Correlation)', fontsize=11)
+    axes[0].set_title('O1: VS≈0 Across Dimensions',
                      fontsize=12, fontweight='bold')
     axes[0].legend()
     axes[0].grid(True, alpha=0.3)
@@ -327,8 +327,8 @@ def create_visualization(df: pd.DataFrame) -> None:
     axes[1].axhline(y=0, color='red', linestyle='--', linewidth=1, alpha=0.5)
     axes[1].set_xticks([i*2.5 + 1.2 for i in range(len(dims))])
     axes[1].set_xticklabels([f'D={d}' for d in dims])
-    axes[1].set_ylabel('VS (Value-Space Correlation)\nVS（意味-空間相関）', fontsize=11)
-    axes[1].set_title('VS Distribution by Dimension\n次元ごとのVS分布',
+    axes[1].set_ylabel('VS (Value-Space Correlation)', fontsize=11)
+    axes[1].set_title('VS Distribution by Dimension',
                      fontsize=12, fontweight='bold')
     axes[1].grid(True, alpha=0.3, axis='y')
     
