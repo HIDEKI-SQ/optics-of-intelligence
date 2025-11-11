@@ -41,7 +41,7 @@ N_ITEMS = 20        # Number of items / アイテム数
 DIM = 100           # Embedding dimension / 埋め込み次元
 RADIUS = 1.0        # Circle radius / 円半径
 BASE_SEED = 42      # Base random seed / 基本乱数シード
-N_SEEDS = 30        # Number of seeds / シード数
+N_SEEDS = 1000      # Number of seeds / シード数
 METRICS = ['correlation', 'euclidean', 'cosine']  # Distance metrics to test / テストする距離計量
 OUTPUT_DIR = Path("outputs/exp08")  # Output directory / 出力ディレクトリ
 
@@ -295,9 +295,9 @@ def create_visualization(df: pd.DataFrame) -> None:
     axes[0].bar(x_pos + width/2, vs_random_means, width, yerr=vs_random_stds,
                label='Random', capsize=5, color='lightsalmon', edgecolor='black')
     axes[0].axhline(y=0, color='red', linestyle='--', linewidth=1, alpha=0.5)
-    axes[0].set_xlabel('Distance Metric / 距離計量', fontsize=11)
-    axes[0].set_ylabel('VS (Value-Space Correlation)\nVS（意味-空間相関）', fontsize=11)
-    axes[0].set_title('O1: VS≈0 Across Metrics\nO1：計量を超えてVS≈0',
+    axes[0].set_xlabel('Distance Metric', fontsize=11)
+    axes[0].set_ylabel('VS (Value-Space Correlation)', fontsize=11)
+    axes[0].set_title('O1: VS≈0 Across Metrics',
                      fontsize=12, fontweight='bold')
     axes[0].set_xticks(x_pos)
     axes[0].set_xticklabels(metrics)
@@ -332,8 +332,8 @@ def create_visualization(df: pd.DataFrame) -> None:
     axes[1].axhline(y=0, color='red', linestyle='--', linewidth=1, alpha=0.5)
     axes[1].set_xticks([i*2.5 + 1.2 for i in range(len(metrics))])
     axes[1].set_xticklabels(metrics)
-    axes[1].set_ylabel('VS (Value-Space Correlation)\nVS（意味-空間相関）', fontsize=11)
-    axes[1].set_title('VS Distribution by Metric\n計量ごとのVS分布',
+    axes[1].set_ylabel('VS (Value-Space Correlation)', fontsize=11)
+    axes[1].set_title('VS Distribution by Metric',
                      fontsize=12, fontweight='bold')
     axes[1].grid(True, alpha=0.3, axis='y')
     
