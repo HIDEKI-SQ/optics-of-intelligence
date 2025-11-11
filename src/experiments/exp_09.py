@@ -40,7 +40,7 @@ N_ITEMS = 20        # Number of items / アイテム数
 DIM = 100           # Embedding dimension / 埋め込み次元
 RADIUS = 1.0        # Circle radius / 円半径
 BASE_SEED = 42      # Base random seed / 基本乱数シード
-N_SEEDS = 30        # Number of seeds / シード数
+N_SEEDS = 1000      # Number of seeds / シード数
 SWAP_RATIOS = [0.0, 0.1, 0.2, 0.3, 0.5]  # Ratios of swaps / スワップ比率
 OUTPUT_DIR = Path("outputs/exp09")  # Output directory / 出力ディレクトリ
 
@@ -301,9 +301,9 @@ def create_visualization(df: pd.DataFrame) -> None:
                     markersize=8, capsize=5, color='red')
     axes[0].axhline(y=0, color='blue', linestyle='--', linewidth=1, alpha=0.5,
                    label='VS=0 (Natural Orthogonality)')
-    axes[0].set_xlabel('Swap Ratio (Topological Disruption)\nスワップ比率（位相破壊）', fontsize=11)
-    axes[0].set_ylabel('VS (Value-Space Correlation)\nVS（意味-空間相関）', fontsize=11)
-    axes[0].set_title('O2: VS Increases with Topological Disruption\nO2：位相破壊でVSが増加',
+    axes[0].set_xlabel('Swap Ratio (Topological Disruption)', fontsize=11)
+    axes[0].set_ylabel('VS (Value-Space Correlation)', fontsize=11)
+    axes[0].set_title('O2: VS Increases with Topological Disruption',
                      fontsize=12, fontweight='bold')
     axes[0].legend()
     axes[0].grid(True, alpha=0.3)
@@ -320,9 +320,9 @@ def create_visualization(df: pd.DataFrame) -> None:
         patch.set_facecolor(color)
     
     axes[1].axhline(y=0, color='blue', linestyle='--', linewidth=1, alpha=0.5)
-    axes[1].set_xlabel('Swap Ratio / スワップ比率', fontsize=11)
-    axes[1].set_ylabel('VS (Value-Space Correlation)\nVS（意味-空間相関）', fontsize=11)
-    axes[1].set_title('VS Distribution by Disruption Level\n破壊レベルごとのVS分布',
+    axes[1].set_xlabel('Swap Ratio', fontsize=11)
+    axes[1].set_ylabel('VS (Value-Space Correlation)', fontsize=11)
+    axes[1].set_title('VS Distribution by Disruption Level',
                      fontsize=12, fontweight='bold')
     axes[1].grid(True, alpha=0.3, axis='y')
     
