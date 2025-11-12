@@ -1,0 +1,30 @@
+name: Run M1 Cross-Implementation Diff
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install numpy scipy pandas
+
+      - name: Run compute_ssc_diff.py
+        run: |
+          python tools/compute_ssc_diff.py
+
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: m1-ssc-diff-results
+          path: outputs/m1/ssc_diff_summary.csv
