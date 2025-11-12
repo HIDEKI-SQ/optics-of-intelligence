@@ -1,0 +1,107 @@
+name: Run M1 Appendix Data Export
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  appendix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy scipy pandas matplotlib pytest
+
+      - name: Compute Δ-spec (float64)
+        run: |
+          python tools/compute_ssc_diff.py
+          python tools/plot_ssc_diff.py
+
+      - name: Generate environment record
+        run: |
+          echo "Python:" > env.txt
+          python --version >> env.txt
+          echo "" >> env.txt
+          echo "Pip freeze:" >> env.txt
+          pip freeze >> env.txt
+          echo "" >> env.txt
+          echo "NumPy config:" >> env.txt
+          python - <<'PY'
+import numpy.__config__ as cfg
+cfg.show()
+PY
+
+      - name: Create appendix_fields.json
+        run: |
+          python - <<'PY'
+import os, json, re, pandas as pd
+fields = {}
+
+# 基本情報
+fields["N"] = 1000
+fields["D"] = 50
+fields["SEED"] = 42
+fields["DTYPE"] = "float64"
+fields["THRESH_MEAN"] = 0.07
+fields["THRESH_MAX"] = 0.10
+
+# 環境情報（env.txtから抽出）
+txt = open("env.txt", "r", encoding="utf-8", errors="ignore").read()
+def find(pat):
+    m = re.search(pat, txt)
+    return m.group(1) if m else ""
+fields["NUMPY_VERSION"]  = find(r"numpy==([0-9.]+)")
+fields["SCIPY_VERSION"]  = find(r"scipy==([0-9.]+)")
+fields["PANDAS_VERSION"] = find(r"pandas==([0-9.]+)")
+fields["MPL_VERSION"]    = find(r"matplotlib==([0-9.]+)")
+m = re.search(r"openblas.*?([0-9]+\.[0-9]+\.[0-9]+)", txt, re.IGNORECASE)
+fields["OPENBLAS_VERSION"] = m.group(1) if m else ""
+
+# 結果CSVの読み取り
+csv = "outputs/m1/ssc_diff_summary.csv"
+if os.path.exists(csv):
+    df = pd.read_csv(csv)
+    for metric in ["euclidean","cosine","correlation"]:
+        row = df[df["metric"]==metric]
+        if not row.empty:
+            fields[f"M1_{metric.upper()}_MEAN"] = float(row["mean_diff"].iloc[0])
+            fields[f"M1_{metric.upper()}_P95"]  = float(row["p95_diff"].iloc[0])
+            fields[f"M1_{metric.upper()}_MAX"]  = float(row["max_diff"].iloc[0])
+
+# チェックサムの計算
+import hashlib
+def sha256_of(path):
+    if not os.path.exists(path): return ""
+    h = hashlib.sha256()
+    with open(path,"rb") as f:
+        for b in iter(lambda: f.read(8192), b""): h.update(b)
+    return h.hexdigest()
+fields["SHA_SUMMARY64"] = sha256_of("outputs/m1/ssc_diff_summary.csv")
+fields["SHA_FIG64"]     = sha256_of("figs/m1/ssc_diff_bars.png")
+
+# CI識別情報
+fields["CI_WORKFLOW_NAME"] = "Run M1 Cross-Implementation Diff"
+fields["ARTIFACT_NAME"]    = "m1-ssc-diff-results"
+fields["COMMIT_HASH"]      = os.environ.get("GITHUB_SHA","")[:7]
+
+json.dump(fields, open("appendix_fields.json","w"), indent=2)
+print(json.dumps(fields, indent=2))
+PY
+
+      - name: Upload appendix data
+        uses: actions/upload-artifact@v4
+        with:
+          name: appendix-bundle
+          path: |
+            appendix_fields.json
+            env.txt
+            outputs/m1/ssc_diff_summary.csv
+            figs/m1/ssc_diff_bars.png
