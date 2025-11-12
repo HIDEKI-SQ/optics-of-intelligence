@@ -1,10 +1,10 @@
 name: Run M1 Cross-Implementation Diff
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: {}
 
 jobs:
-  build:
+  m1:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -17,14 +17,35 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install numpy scipy pandas
+          python -m pip install --upgrade pip
+          pip install numpy scipy pandas matplotlib pytest
 
       - name: Run compute_ssc_diff.py
         run: |
           python tools/compute_ssc_diff.py
 
+      - name: Plot diff bars
+        run: |
+          python tools/plot_ssc_diff.py
+
+      - name: Run pytest (threshold check)
+        run: |
+          pytest -q
+
+      - name: List outputs
+        run: |
+          echo "PWD=$(pwd)"
+          ls -R
+          ls -l outputs || true
+          ls -l outputs/m1 || true
+          ls -l figs || true
+          ls -l figs/m1 || true
+
       - name: Upload results
         uses: actions/upload-artifact@v4
         with:
           name: m1-ssc-diff-results
-          path: outputs/m1/ssc_diff_summary.csv
+          path: |
+            outputs/m1/ssc_diff_summary.csv
+            figs/m1/ssc_diff_bars.png
+          if-no-files-found: warn
